@@ -1,7 +1,6 @@
 package br.com.gustavodiniz.automatedtest.math;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,7 +10,7 @@ class SimpleMathTest {
     //[System Under Test][Condition or Stage Change][Expected Result] sumWhenSixDotTwoIsAddedByTwoShouldReturnEightDotTwo
     //[System Under Test][Expected Result][Condition or Stage Change] sumShouldReturnEightDotTwoWhenSixDotTwoIsAddedByTwo
 
-    private final SimpleMath math = new SimpleMath();
+    private SimpleMath math;
 
     private double firstNumber;
 
@@ -21,11 +20,32 @@ class SimpleMathTest {
 
     private Double actual;
 
+    @BeforeAll
+    static void setUp() {
+        System.out.println("Starting @BeforeAll tests");
+    }
+
+    @AfterAll
+    static void cleanUp() {
+        System.out.println("Starting @AfterAll tests");
+    }
+
+    @BeforeEach
+    void init() {
+        System.out.println("Starting @BeforeEach tests");
+        math = new SimpleMath();
+        givenFirstNumber();
+        givenSecondNumber();
+    }
+
+    @AfterEach
+    void tearDown() {
+        System.out.println("Starting @AfterEach tests");
+    }
+
     @Test
     @DisplayName("Sum when 6.2 is added by 2 should return 8.2")
     void sumShouldReturnEightDotTwoWhenSixDotTwoIsAddedByTwo() {
-        givenFirstNumber();
-        givenSecondNumber();
         givenSumExpectedNumber();
         whenMathSumCalled();
         thenExpectMathSumReturnsExpectedNumber();
@@ -37,8 +57,6 @@ class SimpleMathTest {
     @Test
     @DisplayName("Subtraction when 6.2 is subtracted by 2 should return 4.2")
     void subtractionShouldReturnFourDotTwoWhenSixDotTwoIsSubtractedByTwo() {
-        givenFirstNumber();
-        givenSecondNumber();
         givenSubtractExpectNumber();
         whenMathSubtractionCalled();
         thenExpectReturnsExpectedNumber();
@@ -50,8 +68,6 @@ class SimpleMathTest {
     @Test
     @DisplayName("Multiplication when 6.2 is multiplied by 2 should return 12.4")
     void multiplicationShouldReturnTwelveDotFourWhenSixDotTwoIsMultipliedByTwo() {
-        givenFirstNumber();
-        givenSecondNumber();
         givenMultiplicationExpectedNumber();
         whenMathMultiplicationCalled();
         thenExpectReturnsExpectedNumber();
@@ -63,10 +79,8 @@ class SimpleMathTest {
     @Test
     @DisplayName("Division when 6.2 is divided by 2 should return 3.1")
     void divisionShouldReturnThreeDotOneWhenSixDotTwoIsDividedByTwo() {
-        givenFirstNumber();
-        givenSecondNumber();
-        whenMathDivisionCalled();
         givenDivisionExpectedNumber();
+        whenMathDivisionCalled();
         thenExpectReturnsExpectedNumber();
         thenExpectReturnsNonZero();
         thenExpectReturnsNotNull();
@@ -76,10 +90,8 @@ class SimpleMathTest {
     @Test
     @DisplayName("Mean when 6.2 and 2 is calculated should return 4.1")
     void meanShouldReturnFourDotOneWhenAverageOfSixDotTwoAndTwoIsCalculated() {
-        givenFirstNumber();
-        givenSecondNumber();
-        whenMathMeanCalled();
         givenMeanExpectedNumber();
+        whenMathMeanCalled();
         thenExpectReturnsExpectedNumber();
         thenExpectReturnsNonZero();
         thenExpectReturnsNotNull();
@@ -89,7 +101,6 @@ class SimpleMathTest {
     @Test
     @DisplayName("Square root when 6.2 is calculated should return 2.48997991928")
     void squareRootShouldReturnThreeWhenSquareRootOfNineIsCalculated() {
-        givenFirstNumber();
         givenSquareRootExpectedNumber();
         whenMathSquareRootCalled();
         thenExpectMathSumReturnsExpectedNumber();
